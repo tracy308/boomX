@@ -1,6 +1,10 @@
 package com.example.boomx;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -12,12 +16,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.boomx.databinding.ActivityMainBinding;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // -------------------------------------------- DEFAULT CODE THAT I HAVE NO CLUE WHAT DOES YET ------------------------------------------------- //
+
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -32,6 +41,20 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        // -------------------------------------------- CODE THAT I HAVE ACTUALLY WRITTEN LOL ------------------------------------------------- //
+
+        Button rollButton = findViewById(R.id.rollButton);
+        TextView resultsTextView = findViewById(R.id.resultsTextView);
+        SeekBar seekBar = findViewById(R.id.seekBar);
+
+        rollButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int rand = new Random().nextInt((seekBar.getProgress() + 1) * 10);
+                resultsTextView.setText(Integer.toString(rand));
+            }
+        });
     }
 
 }
